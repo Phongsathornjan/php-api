@@ -19,7 +19,17 @@ $phone = $_POST['phone'];
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูลใหม่
+$sql = "SELECT * FROM user WHERE username = '$username'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // ไม่พบข้อมูลที่ตรงกับชื่อผู้ใช้ที่รับมา
+    $response = array("status" => "already", "message" => "มีบัญชีผู้ใช้นี้อยู่แล้ว");
+    echo json_encode($response);
+    
+} else {
+     // มีข้อมูลที่ตรงกับชื่อผู้ใช้ที่รับมา
+    // เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูลใหม่
 $sql = "INSERT INTO user (username, password, firstname, lastname, phone , role) VALUES ('$username', '$hashed_password', '$firstname', '$lastname' , '$phone' , 'member')";
 
 if ($conn->query($sql) === TRUE) {
@@ -31,11 +41,13 @@ if ($conn->query($sql) === TRUE) {
     $response = array("status" => "error", "message" => "ล้มเหลวโปรดลองอีกรอบ Error: " . $sql . "<br>" . $conn->error);
     echo json_encode($response);
 }
+}
+
 
 // ปิดการเชื่อมต่อ
 $conn->close();
 }else {
-    $response = array("status" => "notfound", "message" => "กรุณากรอกข้อมูลให้ครบ");
+    $response = array("status" => "fill_in_blank", "message" => "กรุณากรอกข้อมูลให้ครบ");
     echo json_encode($response);
 }
 ?>
