@@ -4,10 +4,10 @@ header('Content-Type: application/json');
 include("dbconnection.php");
 $con = dbconnection();
 
-if(isset($_GET["idpet"])){
-$id_pet = $_GET['idpet'];
+if(isset($_GET["name"])){
+$name = $_GET['name'];
 
-$sql = "SELECT * FROM `pethistory` WHERE pet_id = '$id_pet' ORDER BY date_of_treatment DESC";
+$sql = "SELECT * FROM `bookings` WHERE id_booker = '$name' ORDER BY booking_datetime DESC";
 
 $exe = mysqli_query($con,$sql);
 
