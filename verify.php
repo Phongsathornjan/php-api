@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
     if (password_verify($password, $row['password'])) {
         // รหัสผ่านตรงกัน
         // สร้าง JSON response โดยคืนค่า role
-        $response = array("status" => "success", "role" => $row["role"]);
+        $response = array("status" => "success", "role" => $row["role"], "id" => $row["id"], "firstname" => $row["firstname"], "lastname" => $row["lastname"], "username" => $row["username"], "phone" => $row["phone"]);
         echo json_encode($response);
     } else {
         // รหัสผ่านไม่ตรงกัน

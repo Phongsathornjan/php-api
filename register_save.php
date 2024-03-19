@@ -1,7 +1,7 @@
 <?php
 
 header('Content-Type: application/json');
-if($_POST['username']  != '' && $_POST['password']  != '' && $_POST['firstname']  != '' && $_POST['lastname']  != '' && $_POST['phone']  != '' ){
+if($_POST['username']  != '' && $_POST['password']  != '' && $_POST['firstname']  != '' && $_POST['lastname']  != '' && $_POST['phone']  != '' && $_POST['role']  != '' ){
 include("dbconnection.php");
 $conn = dbconnection();
 
@@ -16,6 +16,7 @@ $password = $_POST['password'];
 $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $phone = $_POST['phone'];
+$role = $_POST['role'];
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -29,7 +30,7 @@ if ($result->num_rows > 0) {
     
 } else {
    
-$sql = "INSERT INTO user (username, password, firstname, lastname, phone , role) VALUES ('$username', '$hashed_password', '$firstname', '$lastname' , '$phone' , 'member')";
+$sql = "INSERT INTO user (username, password, firstname, lastname, phone , role) VALUES ('$username', '$hashed_password', '$firstname', '$lastname' , '$phone' , '$role')";
 
 if ($conn->query($sql) === TRUE) {
     // สร้าง JSON response สำหรับการสมัครสมาชิกสำเร็จ
