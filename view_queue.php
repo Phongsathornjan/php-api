@@ -1,25 +1,18 @@
-
 <?php 
 header('Content-Type: application/json');
 
 include("dbconnection.php");
 $con = dbconnection();
-
-  
-
     $year = $_POST['year'];
     $month = $_POST['month'];
     $day = $_POST['day'];
     $id_booker = $_POST['id_booker'];
-
     if($_POST['admininsert'] != ''){
         for ($i = 10; $i <= 16; $i++) {
-            $sql = "INSERT INTO `bookings`(`booking_datetime`, `queue_status`) VALUES ('$year-$month-$day $i:00:00','available')";
+            $sql = "INSERT INTO `bookings` (`booking_id`, `booking_datetime`, `queue_status`, `id_booker`) VALUES (NULL, '$year-$month-$day $i:00:00.000000', 'available', '')";
             mysqli_query($con,$sql);
-          }
-        
+        }
     }
-
     if($_POST['booktime'] != ''){
         $booktime = $_POST['booktime'];
         if($_POST['cancel'] == 'cancel'){
