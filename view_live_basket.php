@@ -4,9 +4,7 @@ header('Content-Type: application/json');
 include("dbconnection.php");
 $con = dbconnection();
 
-$id = $_GET["id"];
-
-$query = "SELECT * FROM `user` WHERE id = '$id'";
+$query = "SELECT `product_id`, `product_name`, `product_stock`, `product_price`, `past_stock` FROM `livebasket` ";
 $exe = mysqli_query($con,$query);
 
 $arr = [];
